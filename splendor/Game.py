@@ -7,6 +7,15 @@ COLOR_WHITE=5
 COLOR_GOLD=6
 COLOR_PEARL=7
 COLOR_ANY=8
+COLORS=[
+    COLOR_RED,
+    COLOR_GREEN,
+    COLOR_BLUE,
+    COLOR_BLACK,
+    COLOR_WHITE,
+    COLOR_GOLD,
+    COLOR_PEARL,
+]
 
 SKILL_NONE=10
 SKILL_TAKE=11
@@ -27,8 +36,11 @@ class Gems:
             gem_list = []
         self.gem_list = gem_list
 
-    def add(self, gem):
-        self.gem_list.append(gem)
+    def add(self, gem:Gem|Gems):
+        if isinstance(gem, Gem):
+            self.gem_list.append(gem)
+        elif isinstance(gem, Gems):
+            self.gem_list.extend(gem.gem_list)
 
     def remove(self, gem):
         self.gem_list.remove(gem)
@@ -38,6 +50,12 @@ class Gems:
     
     def shuffle(self):
         random.shuffle(self.gem_list)
+
+    def add_value(self, cards:Cards):
+        new_gems = Gems(self.gem_list)
+        for card in cards.card_list:
+            values = card.gem_values
+            new_gems.add(values)
 
 class GemBoard:
     # 5*5的宝石盘
@@ -163,4 +181,9 @@ class Player:
         self.characters: list[Character] = []
         self.previlege = 0
 
+    def can_afford(self, card:Card):
+        self.gems
+        self.cards.
 
+    def buy_card(self, card:Card, payment:Gems):
+        pass
